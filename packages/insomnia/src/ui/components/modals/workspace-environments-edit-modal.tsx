@@ -270,7 +270,7 @@ export const WorkspaceEnvironmentsEditModal = forwardRef<WorkspaceEnvironmentsEd
     // Only switch if valid
     if (environmentEditorRef.current?.isValid() && activeWorkspaceMeta?.activeEnvironmentId !== environmentId) {
       setActiveEnvironmentFetcher.submit({
-        environmentId,
+        environmentId: environmentId,
       },
       {
         method: 'post',
