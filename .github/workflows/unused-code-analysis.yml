@@ -1,0 +1,91 @@
+name: Unused Code Analysis
+
+on:
+  pull_request:
+    branches: [ main, develop ]
+  schedule:
+    # Run weekly on Sundays at 2 AM UTC
+    - cron: '0 2 * * 0'
+  workflow_dispatch:
+    inputs:
+      generate_report:
+        description: 'Generate detailed report as artifact'
+        required: false
+        default: 'true'
+        type: boolean
+
+jobs:
+  unused-code-analysis:
+    name: Analyze Unused Code
+    runs-on: ubuntu-latest
+    
+    strategy:
+      matrix:
+        node-version: [16.17.0]
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+    
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+    
+    - name: Install dependencies
+      run: |
+        npm ci
+        npm run bootstrap
+      env:
+        SKIP_INSTALL_SIMPLE_GIT_HOOKS: true
+    
+    - name: Run ESLint unused code check
+      run: npm run lint:unused
+      continue-on-error: true
+    
+    - name: Run comprehensive unused code analysis
+      if: github.event_name != 'pull_request' || github.event.inputs.generate_report == 'true'
+      run: npm run analyze:unused
+      continue-on-error: true
+    
+    - name: Upload unused code report
+      if: github.event_name != 'pull_request' || github.event.inputs.generate_report == 'true'
+      uses: actions/upload-artifact@v3
+      with:
+        name: unused-code-report
+        path: unused-code-report.md
+        retention-days: 30
+    
+    - name: Comment PR with results
+      if: github.event_name == 'pull_request' && failure()
+      uses: actions/github-script@v6
+      with:
+        script: |
+          const fs = require('fs');
+          const path = './unused-code-report.md';
+          
+          let reportContent = 'Unused code analysis completed with issues found.';
+          
+          if (fs.existsSync(path)) {
+            const content = fs.readFileSync(path, 'utf8');
+            const lines = content.split('\n');
+            const summary = lines.slice(0, 20).join('\n');
+            reportContent = `## Unused Code Analysis Results\n\n${summary}\n\n[View full report in artifacts](${context.payload.pull_request.html_url}/checks)`;
+          }
+          
+          github.rest.issues.createComment({
+            issue_number: context.issue.number,
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            body: reportContent
+          });
+    
+    - name: Fail if critical issues found
+      if: github.event_name == 'pull_request'
+      run: |
+        # Check if there are any critical unused code issues
+        # This step will fail the workflow if ESLint found issues
+        npm run lint:unused

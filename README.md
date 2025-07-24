@@ -47,7 +47,30 @@ npm test
 
 # Start App with Live Reload
 npm run app-start
+
+# Analyze unused code
+npm run analyze:unused
 ```
+
+### Code Quality and Analysis
+
+The project includes tools for maintaining code quality:
+
+```shell
+# Run linting
+npm run lint
+
+# Check for unused code
+npm run analyze:unused
+
+# Run individual unused code checks
+npm run analyze:unused-exports  # Check unused TypeScript exports
+npm run analyze:unused-deps     # Check unused dependencies
+npm run analyze:unused-files    # Check unused files
+npm run lint:unused            # ESLint unused code rules
+```
+
+For more details on unused code detection, see [docs/UNUSED_CODE_DETECTION.md](docs/UNUSED_CODE_DETECTION.md).
 
 ### Linux
 

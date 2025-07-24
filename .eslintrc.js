@@ -149,11 +149,33 @@ module.exports = {
     '@typescript-eslint/no-empty-interface': [ERROR, { 'allowSingleExtends': true }],
     '@typescript-eslint/no-namespace': [ERROR, { allowDeclarations: true }],
     '@typescript-eslint/no-redeclare': ERROR,
-    '@typescript-eslint/no-unused-vars': [ERROR, { ignoreRestSiblings: true }],
+    '@typescript-eslint/no-unused-vars': [ERROR, { 
+      ignoreRestSiblings: true,
+      argsIgnorePattern: '^_',
+      varsIgnorePattern: '^_',
+      caughtErrorsIgnorePattern: '^_'
+    }],
     '@typescript-eslint/no-use-before-define': ERROR,
     '@typescript-eslint/space-infix-ops': ERROR,
     '@typescript-eslint/semi': [ERROR, 'always'],
     '@typescript-eslint/quotes': [ERROR, 'single', { avoidEscape: true }],
+
+    // Additional unused code detection rules
+    'no-unused-expressions': ERROR,
+    '@typescript-eslint/no-unused-expressions': ERROR,
+    'import/no-unused-modules': [ERROR, {
+      unusedExports: true,
+      src: ['./**/*.{js,jsx,ts,tsx}'],
+      ignoreExports: [
+        '**/*.d.ts',
+        '**/index.{js,ts}',
+        '**/__tests__/**',
+        '**/*.test.{js,ts,tsx}',
+        '**/*.spec.{js,ts,tsx}',
+        '**/stories/**',
+        '**/*.stories.{js,ts,tsx}'
+      ]
+    }],
 
     'simple-import-sort/imports': ERROR,
   },

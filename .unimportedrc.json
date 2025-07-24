@@ -1,0 +1,45 @@
+{
+  "entry": [
+    "packages/*/src/index.{js,ts,tsx}",
+    "packages/*/src/main.{js,ts}",
+    "packages/*/src/renderer.{js,ts}",
+    "packages/*/src/preload.{js,ts}",
+    "packages/*/bin/**/*.{js,ts}",
+    "scripts/**/*.{js,ts}",
+    "jest-preset.js",
+    ".eslintrc.js"
+  ],
+  "extensions": [".js", ".jsx", ".ts", ".tsx"],
+  "ignorePatterns": [
+    "**/node_modules/**",
+    "**/dist/**",
+    "**/build/**",
+    "**/.git/**",
+    "**/coverage/**",
+    "**/__tests__/**",
+    "**/*.test.*",
+    "**/*.spec.*",
+    "**/*.stories.*",
+    "**/stories/**",
+    "**/*.d.ts",
+    "**/types/**",
+    "**/@types/**"
+  ],
+  "ignoreUnresolved": [
+    "electron",
+    "vscode",
+    "node:",
+    "@jest/globals"
+  ],
+  "ignoreUnimported": [
+    "**/*.d.ts",
+    "**/jest.config.js",
+    "**/tsconfig*.json",
+    "**/babel.config.js",
+    "**/webpack.config.js",
+    "**/vite.config.js",
+    "**/electron-builder.config.js",
+    "**/.eslintrc.js",
+    "**/prettier.config.js"
+  ]
+}

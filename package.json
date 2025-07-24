@@ -40,7 +40,12 @@
     "type-check": "lerna run type-check",
     "changelog-image": "esr ./scripts/changelog-image/changelog-image.ts",
     "download-all-npm-plugins": "esr ./scripts/download-all-npm-plugins.ts",
-    "dev": "npm start --prefix packages/insomnia"
+    "dev": "npm start --prefix packages/insomnia",
+    "analyze:unused": "node scripts/unused-code-analysis.js",
+    "analyze:unused-exports": "ts-unused-exports tsconfig.eslint.json --config ts-unused-exports.json",
+    "analyze:unused-deps": "depcheck",
+    "analyze:unused-files": "unimported",
+    "lint:unused": "eslint . --ext .js,.ts,.tsx --rule \"@typescript-eslint/no-unused-vars: error\" --rule \"import/no-unused-modules: error\""
   },
   "devDependencies": {
     "@jest/globals": "^28.1.0",
@@ -50,6 +55,7 @@
     "@types/svgo": "^2.6.3",
     "@typescript-eslint/eslint-plugin": "^5.10.2",
     "@typescript-eslint/parser": "^5.10.2",
+    "depcheck": "^1.4.3",
     "esbuild-runner": "^2.2.1",
     "eslint": "^8.8.0",
     "eslint-config-helpers": "^1.1.0",
@@ -68,7 +74,9 @@
     "svg-text-to-path": "^1.1.2",
     "svgo": "^2.8.0",
     "ts-jest": "^28.0.1",
+    "ts-unused-exports": "^10.0.1",
     "type-fest": "^2.12.0",
-    "typescript": "^4.5.5"
+    "typescript": "^4.5.5",
+    "unimported": "^1.31.1"
   }
 }

@@ -1,0 +1,50 @@
+{
+  "ignore-bin-package": false,
+  "skip-missing": false,
+  "ignore-dirs": [
+    "node_modules",
+    "dist",
+    "build",
+    ".git",
+    "__tests__",
+    "coverage"
+  ],
+  "ignore-path": ".gitignore",
+  "ignores": [
+    "@types/*",
+    "eslint-*",
+    "typescript",
+    "ts-node",
+    "jest",
+    "@jest/*",
+    "electron",
+    "electron-builder*",
+    "rimraf",
+    "concurrently",
+    "cross-env",
+    "esbuild*",
+    "vite*"
+  ],
+  "parsers": {
+    "*.js": "es6",
+    "*.jsx": "jsx",
+    "*.ts": "typescript",
+    "*.tsx": "tsx"
+  },
+  "detectors": [
+    "requireCallExpression",
+    "importDeclaration",
+    "importCallExpression",
+    "exportDeclaration",
+    "gruntLoadTaskCallExpression",
+    "gulpLoadPluginsCallExpression"
+  ],
+  "specials": [
+    "eslint",
+    "babel",
+    "webpack",
+    "jest",
+    "typescript",
+    "electron-builder"
+  ]
+}

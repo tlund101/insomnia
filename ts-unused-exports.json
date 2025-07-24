@@ -1,0 +1,20 @@
+{
+  "ignoreFiles": [
+    "**/*.test.*",
+    "**/*.spec.*",
+    "**/__tests__/**",
+    "**/stories/**",
+    "**/*.stories.*",
+    "**/node_modules/**",
+    "**/dist/**",
+    "**/build/**",
+    "**/*.d.ts"
+  ],
+  "ignoreVars": [
+    "^_"
+  ],
+  "allowUnusedTypes": true,
+  "showLineNumber": true,
+  "excludeDeclarationFiles": true,
+  "findCompletelyUnusedFiles": true
+}
